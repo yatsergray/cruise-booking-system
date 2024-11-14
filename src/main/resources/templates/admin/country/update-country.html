@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update country</title>
+</head>
+<body>
+<a th:href="@{/admin/countries}" th:method="get">Countries</a>
+<form action="#" th:action="@{/admin/update_country/{id}(id=${countryDTO.id})}" th:object="${countryDTO}" th:method="post">
+    <label>
+        <input type="text" th:field="*{name}">
+    </label>
+    <button type="submit">Update country</button>
+</form>
+</body>
+</html>

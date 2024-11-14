@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add cabin class</title>
+</head>
+<body>
+    <a th:href="@{/admin/cabin_classes}" th:method="get">Cabin classes</a>
+    <form action="#" th:action="@{/admin/save_cabin_class}" th:object="${cabinClassDTO}" th:method="post">
+        <label>
+            <input type="text" th:field="*{name}">
+        </label>
+        <button type="submit">Add cabin class</button>
+    </form>
+</body>
+</html>

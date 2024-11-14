@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update cruise</title>
+</head>
+
+<body>
+<a th:href="@{/admin/cruises}" th:method="get">Cruises</a>
+<form action="#" th:action="@{/admin/update_cruise/{id}(id=${cruise.id})}" th:object="${cruise}" th:method="post">
+    <label>
+        <input th:value="${cruise.id}" th:field="*{id}" hidden>
+    </label>
+    <label>
+        <select th:field="*{cruiseLiner}">
+            <option th:each="cruiseLiner : ${cruiseLiners}"
+                    th:value="${cruiseLiner.id}"
+                    th:text="${cruiseLiner.name}"></option>
+        </select>
+    </label>
+    <button type="submit" name="addEndRow" value="addEndRow">Add</button>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Position</th>
+            <th>City</th>
+            <th>Arrival date-time</th>
+            <th>Departure date-time</th>
+            <th>Add</th>
+            <th>Remove</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="destination, destinationStat : *{destinations}">
+            <td th:text="${destinationStat.count}"></td>
+            <td>
+                <label>
+                    <select th:field="*{destinations[__${destinationStat.index}__].city}">
+                        <option th:each="city : ${cities}"
+                                th:value="${city.id}"
+                                th:text="${city.name} + '(' + ${city.country.name} + ')'"></option>
+                    </select>
+                </label>
+            </td>
+            <td>
+                <div th:if="${!destinationStat.first}">
+                    <label>
+                        <input type='datetime-local'
+                               th:field="*{destinations[__${destinationStat.index}__].arrivalDateTime}">
+                    </label>
+                </div>
+            </td>
+            <td>
+                <div th:if="${!destinationStat.last}">
+                    <label>
+                        <input type='datetime-local'
+                               th:field="*{destinations[__${destinationStat.index}__].departureDateTime}">
+                    </label>
+                </div>
+            </td>
+            <td>
+                <div th:if="${!destinationStat.last}">
+                    <button type="submit" name="addRow" th:value="${destinationStat.index}">Add</button>
+                </div>
+            </td>
+            <td>
+                <div th:if="${!destinationStat.last && !destinationStat.first}">
+                    <button type="submit" name="removeRow" th:value="${destinationStat.index}">Remove</button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:if="${#fields.hasErrors('destinations')}" th:errors="*{destinations}"></div>
+    <button type="submit" name="updateCruise" value="updateCruise">Update cruise</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cruises</title>
+</head>
+<body>
+    <a th:href="@{/admin/cruise_liners}" th:method="get">Cruise liners</a>
+    <a th:href="@{/admin/cruises}" th:method="get">Cruises</a>
+    <a th:href="@{/admin/countries}" th:method="get">Countries</a>
+    <a th:href="@{/admin/cities}" th:method="get">Cities</a>
+    <a th:href="@{/admin/cabin_classes}" th:method="get">Cabin classes</a>
+    <hr>
+    <a th:href="@{/admin/save_cruise}" th:method="get">Add cruise</a><br>
+    <hr>
+    <div th:if="${cruiseDTOList != null}">
+        <div th:each="cruiseDTO : ${cruiseDTOList}">
+            <div th:if="${cruiseDTO != null}">
+                <div th:if="${cruiseDTO.duration != null}">duration: <a th:text="${cruiseDTO.duration}"></a><br></div>
+                <div th:if="${cruiseDTO.departureDateTime != null}">departureDateTime: <a th:text="${cruiseDTO.departureDateTime}"></a><br></div>
+                <div th:if="${cruiseDTO.arrivalDateTime != null}">arrivalDateTime: <a th:text="${cruiseDTO.arrivalDateTime}"></a><br><br></div>
+                <div th:if="${cruiseDTO.cruiseLinerDTO != null && cruiseDTO.cruiseLinerDTO.name != null}">cruiseLinerName: <a th:text="${cruiseDTO.cruiseLinerDTO.name}"></a><br><br></div>
+                <div th:if="${cruiseDTO.destinationDTOList != null}">
+                    <div th:each="destinationDTO : ${cruiseDTO.destinationDTOList}">
+                        <div th:if="${destinationDTO.cityDTO != null && destinationDTO.cityDTO.name != null}">city: <a th:text="${destinationDTO.cityDTO.name}"></a><br></div>
+                        <div th:if="${destinationDTO.arrivalDateTime != null}">arrivalDateTime: <a th:text="${destinationDTO.arrivalDateTime}"></a><br></div>
+                        <div th:if="${destinationDTO.departureDateTime != null}">departureDateTime: <a th:text="${destinationDTO.departureDateTime}"></a><br><br></div>
+                    </div>
+                </div>
+                <a th:href="@{/admin/update_cruise/{id}(id=${cruiseDTO.id})}">Update</a>
+                <a th:href="@{/admin/delete_cruise/{id}(id=${cruiseDTO.id})}">Delete</a>
+                <hr>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

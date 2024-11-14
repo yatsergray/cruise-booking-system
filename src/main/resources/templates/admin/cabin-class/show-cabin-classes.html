@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cabin classes</title>
+</head>
+<body>
+    <a th:href="@{/admin/cruise_liners}" th:method="get">Cruise liners</a>
+    <a th:href="@{/admin/cruises}" th:method="get">Cruises</a>
+    <a th:href="@{/admin/countries}" th:method="get">Countries</a>
+    <a th:href="@{/admin/cities}" th:method="get">Cities</a>
+    <a th:href="@{/admin/cabin_classes}" th:method="get">Cabin classes</a>
+    <hr>
+    <a th:href="@{/admin/save_cabin_class}" th:method="get">Add cabin class</a><br>
+    <hr>
+    <div th:if="${cabinClassDTOList != null}">
+        <div th:each="cabinClassDTO : ${cabinClassDTOList}">
+            <div th:if="${cabinClassDTO != null}">
+                <div th:if="${cabinClassDTO.name != null}">name: <a th:text="${cabinClassDTO.name}"></a><br></div>
+                <a th:href="@{/admin/update_cabin_class/{id}(id=${cabinClassDTO.id})}">Update</a>
+                <a th:href="@{/admin/delete_cabin_class/{id}(id=${cabinClassDTO.id})}">Delete</a>
+                <hr>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add country</title>
+</head>
+<body>
+<a th:href="@{/admin/countries}" th:method="get">Countries</a>
+<form action="#" th:action="@{/admin/save_country}" th:object="${countryDTO}" th:method="post">
+    <label>
+        <input type="text" th:field="*{name}">
+    </label>
+    <button type="submit">Add country</button>
+</form>
+</body>
+</html>

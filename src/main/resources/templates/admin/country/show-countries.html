@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Countries</title>
+</head>
+<body>
+    <a th:href="@{/admin/cruise_liners}" th:method="get">Cruise liners</a>
+    <a th:href="@{/admin/cruises}" th:method="get">Cruises</a>
+    <a th:href="@{/admin/countries}" th:method="get">Countries</a>
+    <a th:href="@{/admin/cities}" th:method="get">Cities</a>
+    <a th:href="@{/admin/cabin_classes}" th:method="get">Cabin classes</a>
+    <hr>
+    <a th:href="@{/admin/save_country}" th:method="get">Add country</a><br>
+    <hr>
+    <div th:if="${countryDTOList != null}">
+        <div th:each="countryDTO : ${countryDTOList}">
+            <div th:if="${countryDTO != null}">
+                <div th:if="${countryDTO.name != null}">name: <a th:text="${countryDTO.name}"></a><br></div>
+                <a th:href="@{/admin/update_country/{id}(id=${countryDTO.id})}">Update</a>
+                <a th:href="@{/admin/delete_country/{id}(id=${countryDTO.id})}">Delete</a>
+                <hr>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
